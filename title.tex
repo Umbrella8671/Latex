@@ -1,0 +1,86 @@
+% title.tex
+
+\documentclass[a4paper, titlepage]{ctexart}
+
+\usepackage{fancyhdr}
+
+\CTEXoptions[today=small]
+\title{title\thanks{本文由九章基金会赞助}}
+\author{
+	张三\thanks{九章学堂讲师}\\九章学堂\\123456\and
+	李四\thanks{天元研究所所长}\\天元研究所\\12345678
+}
+\date{\today}
+
+\pagestyle{fancy}
+% \fancyhf{}
+
+% \lhead{\rightmark}
+% \lfoot{footer}
+% \cfoot{\thepage}
+% \rfoot{footer}
+% \fancyhead[L]{张三}
+% \fancyfoot[OR, EL]{$\heartsuit$}
+
+\renewcommand \tablename{目录}
+\renewcommand \footrulewidth{0.4pt}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+\section{标题和标题页}
+
+% 标题分两个部分:声明标题内容,实际输出内容
+% 标题:标题、作者、日期
+% \title{title}, \author{names}, \date{text} 可以使用\\换行
+% 多个作者用\and分隔  
+% \thanks{text}产生特殊脚注
+% \CTEXoptions[today=?]可以改日期格式
+\centering 标题和标题页
+
+\section{划分章节}
+
+% part, chapter, section
+% subsection, subsubsection
+% paragraph, subparagraph
+appdenix附录
+
+\section{基本文档类和ctex类}
+
+% 文档类是LATEX中基本的格式组织方式
+% 主要有三个:article, report, book。对应小，中，长篇幅
+% []可选参数
+% 纸张大小 a4paper, letterpaper
+% 纸张方向 landscape 横向
+% 单双面 oneside, twoside
+% 字号大小 10pt, 11pt...
+% 分栏 onecolumn, twocolumn
+% 标题格式 titlepage(标题独自成页)
+% 		   notitlepage
+% 章格式 openright, openany
+
+article， report， book 
+
+\section{页面格式与fancyhdr}
+页码,页眉和页脚的设计
+% \pagestyle{option}
+% option:
+% empty 无页眉页脚
+% plain 没有页眉，页脚是居中的页码
+% headings 没有页脚，页眉是章节名称和页码
+% myheadings 没有页脚，页眉是页码和自定义内容
+
+
+\appendix % 附录
+\section{代码}
+代码
+\section{参考文献}
+参考文献
+
+
+\end{document}
+
+
+

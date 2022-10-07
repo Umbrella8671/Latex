@@ -1,0 +1,284 @@
+% 绘制图表.tex
+
+\documentclass[a4paper, titlepage, hyperref, UTF8]{ctexart}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\usepackage{scrtime}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{commath}
+\usepackage{dcolumn}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{lscape}
+\hypersetup{
+	colorlinks=false,
+	pdfborder=0 0 0
+}
+
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhf{}
+\lhead{\leftmark}
+\rhead{\thepage}
+\cfoot{\thepage}
+
+
+
+\title{绘制图表}
+\author{张三}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{LATEX中的表格}
+按行列对齐的一组内容。二维延伸的特殊排版对象
+\subsection{tabular和array}
+两个环境:tabular,array
+\begin{verbatim}
+
+\begin{tabular}[垂直对齐]{列格式说明}
+<表项>&<表项>&...&<表项>\\
+\end{tabular}
+
+\begin{array}[垂直对齐]{列格式说明}
+<表项>&<表项>&...&<表项>\\
+\end{array}
+
+[垂直对齐]参数可以是:
+t表格顶部对齐
+b表格底部对齐
+默认垂直居中
+
+\end{verbatim}
+
+\begin{tabular}{lcr}
+left & center & right \\
+本列左对齐 & 本列居中 & 本列右对齐 \\
+\end{tabular}
+
+\begin{tabular}{ll}
+\bfseries 功能 & \bfseries 环境 \\
+表格 & \sffamily \itshape tabular \\
+对齐 & \ttfamily tabbing
+\end{tabular}
+
+\begin{tabular}{|l|}
+\hline
+上 \\
+\hline
+中 \\
+\hline
+下 \\
+\hline
+\end{tabular}
+\qquad
+输入与输出有关系$y=x^2$
+
+\begin{tabular}{|c|rrr|p{4em}|}
+\hline
+姓名 & 语文 & 数学 & 外语 & 备注 \\
+\hline
+张三 & 87 & 100 & 93 & 优秀 \\
+李四 & 75 & 63 & \emph{52} & 补考另行通知  \\
+王小二 & 80 & 82 & 78 & \\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|r@{.}l|}
+\hline
+收入 & 12345 & 6 \\ \hline
+支出 & 765 & 43 \\ \hline
+结余 & 11580 & 17 \\ \hline
+\end{tabular}
+
+\begin{tabular}{|c|*{3}{r@{.}l|}}
+\hline
+收入 & 12345&6 & 5000&0 & 1020&55\\ \hline
+支出 & 765&43  & 5120&5 & 98760&0  \\ \hline
+结余 & 11580&17 & -120&5 & -97739&45 \\ \hline
+\end{tabular}
+
+
+
+
+\[
+\begin{pmatrix}
+\begin{array}{ccc|c}
+a_{11} & a_{12} & a_{13} & b_{1} \\
+a_{21} & a_{22} & a_{23} & b_{2} \\
+a_{31} & a_{32} & a_{33} & b_{3} 
+\end{array}
+\end{pmatrix}
+\]
+
+\subsection{表格单元的合并于分割}
+\verb|\multicolumn{项数}{新列格式}{内容}|命令可用于将一行中几个不同的表项合并为一项
+例如:
+\begin{tabular}{|r|r|}
+\firsthline
+\multicolumn{2}{|c|}{成绩} \\ \hline
+语文 & 数学 \\ \hline
+87 & 100 \\ 
+\lasthline 
+\end{tabular}
+
+\begin{tabular}{|r|r|}
+\firsthline
+\multicolumn{1}{|c|}{输入} & \multicolumn{1}{c|}{输出} \\ \hline
+1 & 1 \\ \hline
+5 & 25 \\ \hline
+15 & 225 \\ 
+\lasthline
+\end{tabular}
+
+\begin{tabular}{|c|r|r|}
+\firsthline
+& \multicolumn{2}{c|}{成绩} \\ \cline{2-3}
+姓名 & 语文 & 数学 \\ \hline
+张三 & 87 & 100\\
+\lasthline
+\end{tabular}
+
+\begin{tabular}{|c|}
+\firsthline
+1 \\ \hline
+1 \vline 2 \\ \hline
+1 \vline 2 \vline 3 \\
+\lasthline
+\end{tabular}
+
+\begin{tabular}{|c|}
+\firsthline
+1 \\ \hline
+\begin{tabular}{c|c} 1 & 2 \end{tabular} \\ \hline
+\begin{tabular}{@{}c|c|c@{}} 1 & 2 & 3 \end{tabular} \\ 
+\lasthline
+\end{tabular}
+
+\begin{tabular}{|c|r|r|}
+\firsthline
+\multirow{2}*{姓名} & \multicolumn{2}{c|}{成绩} \\ \cline{2-3}
+& 语文 & 数学 \\ \hline
+张三 & 87 & 100 \\ 
+\lasthline
+\end{tabular}
+
+
+
+\subsection{定宽表格与tabularx}
+\subsection{长表格与longtable}
+\subsection{三表线与表线控制}
+\subsection{array宏包与列格式控制}
+\subsection{定界符与子矩阵}
+
+\section{插图与变换}
+\LaTeX 中使用三类图形:
+\begin{itemize}
+\item 使用\TeX 基本的命令  
+\item 使用特殊的字体拼接组合
+\item 使用\TeX 的扩充接口\verb"\special" 命令或新引擎的功能
+\end{itemize}
+
+\subsection{graphicx与插图}
+\begin{verbatim}
+通过\usepackage{graphics}, \usepackage{graphicx}
+\includegraphics[keyvals]{imagefile}
+\end{verbatim}
+
+\includegraphics[width=2em]{o59gvl}
+\includegraphics[height=1cm]{o59gvl}
+\includegraphics[scale=0.5]{o59gvl}
+
+\includegraphics[scale=0.5,angle=90]{28p95m}
+\includegraphics[scale=0.5,angle=90,origin=c]{28p95m}
+
+基线\rule{2cm}{0.4pt}
+\includegraphics[height=1cm]{28p95m}
+\includegraphics[angle=90,origin=l,height=1cm]{28p95m}
+\includegraphics[angle=90,origin=b,totalheight=1cm]{28p95m}
+\includegraphics[angle=90,origin=lb,totalheight=1cm]{28p95m}
+
+图片格式:PDF矢量图、PNG无损压缩像素图、JEPG有损压缩像素图
+
+
+
+
+
+\subsection{几何变换}
+\subsection{页面旋转}
+\verb|\begin{landscape} content... \end{landscape}|
+
+
+
+
+\section{浮动体与标题控制}
+\subsection{浮动体}
+两种浮动体环境:\verb|figure table|分别用于图和表的排版
+\begin{verbatim}
+\begin{figure}[允许位置]默认为tbp
+content...
+\end{figure}
+
+\begin{table}[任意位置]
+content...
+\end{table}
+
+位置:
+h(here):此处
+t(top):页顶
+b(bottom):页底
+p(page):独立一页(浮动页,文本页)
+在table环境中放置tabular生成的表格,在figure放置\includegraphics[keyvals]{imagefile}
+命令插入的图片.还在前使用\centering命令让图表居中
+
+\caption{text}
+\caption[short text]{text}
+可以为图表加标题
+\end{verbatim}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{28p95m}
+\end{figure}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|}
+	\firsthline
+	图形 & \verb|figure|环境\\ \hline
+	表格 & \verb|table|环境\\
+	\lasthline
+	\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics{28p95m}
+\caption[风景]{\TeX{} 的吉祥物———风景}\label{fig-28p95m}
+\end{figure}
+
+
+
+\subsection{标题控制与caption宏包}
+\subsection{并排与子图表}
+\subsection{浮动控制与float包}
+\subsection{文字绕排}
+
+\section{使用彩色}
+\subsection{彩色表格}
+
+\section{绘图语言}
+\subsection{XY-pic与图标交换}
+\subsection{PSTricks与TikZ简介}
+\subsection{METAPOST与Asymptote简介}
+
+
+
+
+\end{document}

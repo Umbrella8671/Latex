@@ -1,0 +1,152 @@
+% 自动化.tex
+
+\documentclass[a4paper, titlepage, hyperref, UTF8]{article}	% 英文格式的目录在左边 
+% \documentclass[titlepage]{ctexart} % 中文会自动将目录设在中间
+\usepackage{ctex}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\hypersetup {
+    colorlinks = true,
+    allcolors = black,
+    bookmarks = true,
+    bookmarksopen = true,
+    bookmarksnumbered = true,
+    pdfborder = 0 0 0, 
+    pdfstartview = Fit,
+    pdftitle = 自动化,
+    pdfauthor = 张三,
+    pdfsubject = 自动化介绍,
+}
+
+
+\CTEXoptions[today=old]
+
+
+
+
+\renewcommand \tablename{目录}
+% 定义页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\footrulewidth}{0.4pt}
+\cfoot{\thepage}
+\lhead{\rightmark}
+\rhead{\thepage}
+\fancyhead[LE]{\rightmark}
+
+\title{自动化工具}
+\author{无名氏}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\addcontentsline{toc}{section}{自动化工具}
+\maketitle
+\tableofcontents
+\section{目录}
+\subsection{目录和图表工具}
+
+\subsection{控制目录内容}
+可以手工制作目录
+
+\addcontentsline{toc}{section}{\numberline {5}手工目录}{2}
+\addcontentsline{toc}{subsection}{\numberline {5.1}手工子目录}
+\subsection{定制目录格式}
+
+
+
+\section{交叉引用}
+可以通过符号书签引用文档中某个对象的编码、页码或标题等信息\\
+自动建立书签
+
+
+\subsection{标签与引用}
+使用分两步: 定义标签，引用标签
+
+
+
+\subsection{更多交叉引用}
+使用宏包
+\subsection{电子文档与超链接}
+使用hyperef宏包\\
+\verb|\usepackage{hyperref}|
+\begin{verbatim}
+\hypersetup {
+    colorlinks
+    bookmarks
+    bookmarksopen
+    bookmarksnumbered
+    pdfborder
+    pdfpagemode
+    pdfstartview
+    pdftitle
+    pdfauthor
+    pdfsubject
+    pdfkeywords
+}
+\end{verbatim}
+
+
+\verb|\url{text}用来输出URL地址，也有超链接功能|
+例如:\url{www.baidu.com}
+
+\verb|\nolinkurl{URL}输出的URL，不具备超链接功能|
+例如:\nolinkurl{www.baidu.com}
+
+\verb|\path命令可以用来排版文件路径, 格式和\url差不多|
+
+\verb|\href{URL}{text},可使文字产生指向URL地址的超链接效果|\par
+例如:\href{www.baidu.com}{百度}
+
+\verb|\href[options]{text},可以让文字指向标签|\par
+
+\verb|\phantomsection产生一个超链接点，用于手工添加的目录|\par
+\verb|\pdfbookmark[层次]{书签文字}{链接点名称}手工添加PDF书签|
+
+
+\section{BIBTEX与文献库数据}
+通过外部工具BIBTEX,根据文章内容从一个文献库抽取、\\
+整理和排版文献
+
+
+\subsection{BIBTEX基础}
+文献数据库是以.bib结尾的文本文件
+内容大致为:
+\begin{verbatim}
+@BOOK {
+   mittelbach2004,
+   title = {The {\LateX} Companion},
+   publisher = {Addison-Wesley},
+   year = {2004},
+   author = {Frank Mittelbach and Mickel Goossens},
+   seriers = {Tools and Techniques for Computer Typesetting},
+   address = {Boston},
+   edition = {Second}
+}
+
+三件事:
+1. 使用\bibliographystyle{style}于导言区设定参考文献格式
+有plain、alpha、abbrv等
+2. 在正文中用标签使用\cite命令引用需要的文献,或\nocite指明
+不引用但仍需列出的文献标签
+3. 使用\bibliography指出要使用的文献数据库
+\end{verbatim}
+
+
+\subsection{JabRef与文献数据库管理}
+\subsection{用natbib定制文献格式}
+\subsection{更多的文献格式}
+\subsection{文献列表的底层命令}
+
+
+\section{Makeindex索引}
+\subsection{制作索引}
+
+\subsection{定制索引格式}
+\subsection{词汇表及其他}
+
+
+\bibliography{自动化}
+
+\end{document}

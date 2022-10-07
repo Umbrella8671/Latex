@@ -1,0 +1,208 @@
+% coding: UTF-8
+% paragraph.tex
+
+\documentclass{ctexart}
+
+\usepackage{fontspec}
+\usepackage{theorem} % 定理类宏包
+\usepackage{listings}
+
+
+\lstset{ % 整体设置
+    columns = flexible,
+    numbers = left,
+    escapechar = ',
+    numberstyle = \footnotesize,
+    basicstyle = \sffamily,
+    keywordstyle = \bfseries,
+    commentstyle = \rmfamily\itshape,
+    stringstyle = \ttfamily
+}
+
+\renewcommand{\tablename}{目录}
+
+\newcounter{mycnt}  % 定义一个计数器
+\setcounter{mycnt}{0} % 设置计数器的值
+\addtocounter{mycnt}{10} % 计数器值增减
+
+\theoremstyle{marginbreak}
+\newtheorem{thm}{定理} 
+% 在编书时 \newtheorem{lemma}{引理}[chapter] % [chapter]可选参数可以按章计数
+\newtheorem{prop}[mycnt]{命题}
+
+
+
+
+\title{Paragraph}
+\author{Umbrella}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\maketitle
+\tableofcontents	
+\section{正文段落}
+
+段落的相关命令
+
+% 中文默认有缩进,英文默认无缩进,但是英文可以indentfirst宏包产生默认缩进
+% \parindent控制缩进 \indent控制缩进 \noindent取消缩进
+% 段与段的垂直距离由\parskip控制
+% 段落的对齐方式默认两端均匀对齐，\raggedright段落左对齐,\raggedleft右对齐
+% \centering居中对齐
+% 文字对齐环境,flushleft左对齐,flushright右对齐,center居中环境
+
+
+
+\section{文本环境}
+
+% 三种: 引用，诗歌， 摘要
+
+% 引用环境
+\begin{quote}
+引用环境
+
+首行无缩进,\par
+用于小段
+\end{quote}
+
+\begin{quotation}
+引用环境
+
+首行有缩进,\par
+用于多段
+\end{quotation}
+
+% 摘要环境
+% 类似于quote，但是添加了一个标题,并可以通过\abstractname{name}定义
+\begin{abstract}
+本书讲解\LaTeX{} 的使用
+\end{abstract}
+
+\section{列表环境}
+
+% 三种列表环境,编号的enumerate、不编号的itemize、和关键字的description
+% 列表内使用\item 命令开始一个列表项,带一个可选参数表示手动编号或关键字
+% 三种环境最多可以嵌套四层
+
+% enumerate使用数字自动编号
+% 有一个计数器(counter)控制编号,四层嵌套使用四个计数器: enumi，enumii，enumiii，enumiv
+% \the计数器名输出计数器值
+
+\begin{enumerate}
+	\item 中文
+	\begin{enumerate}
+		\item 古代汉语
+		\begin{enumerate}
+			\item 口语
+			\begin{enumerate}
+				\item 普通话
+				\item 方言
+			\end{enumerate}
+			\item 书面语
+		\end{enumerate}
+		\item 现代汉语
+	\end{enumerate}
+	\item English
+	\item Francais
+\end{enumerate}
+
+% itemize不编号，加一个符号
+\begin{itemize}
+	\item 中文
+	\item English
+	\item Francais
+\end{itemize}
+
+% description使用\item 的可选参数，并作为关键字加粗标记
+\begin{description}
+	\item[中文] 中国的语言文字
+	\item[English] The language of England
+	\item[Francias] La langue de France
+\end{description}
+
+\section{定理类环境}	
+
+% 产生一个标题、编号和特定格式的文本
+% 在导言区定义声明定理环境
+% 定理类环境计数器就是定理名,会随定理个数增加自增
+
+\begin{thm}[勾股定理]
+这是一个定理
+\end{thm}
+\begin{thm}
+第二个定理
+\end{thm}
+\begin{prop}
+直角三角形的斜边大于直角边
+\end{prop}
+
+% 定理类宏包
+% 预定义格式 \theoremstyle{style}
+% plain	       默认格式 
+% break		   定理头换行
+% marginbreak  编号在页边，定理头换行
+% changebreak  定理头编号在前文字在后，换行
+% change	   定理头编号在前文字在后，不换行
+% margin 	   编号在页边，定理头换行
+
+
+\section{抄录和代码环境}
+
+
+% 一小段文字,使用\verb(*)|text|,加*使空格可见,
+% 使用|text|,"text",!text!等 <符号>文本<符号>将需展示文本指出
+\verb|"\LaTeX \& \Tex"|\par
+\verb"\LaTeX \& \Tex"\par
+\verb!\/}{#$%&~!\par
+\verb*|\LaTeX \& \Tex|
+
+% 大段使用verbatim环境
+\begin{verbatim}
+#include <iostream>
+using namespace std;
+int main() {
+    cout << "Hello World!" << endl;
+}
+\end{verbatim}
+
+\subsection{程序代码与listings}
+
+% 程序代码的语法高亮
+% 使用listings宏包,使用lstlisting环境
+% 在可选参数中选择语言
+% listings对中文支持不好,需使用逃逸字符处理, 
+% 设置逃逸字符escapechar = ', 用''括起的字符
+\begin{lstlisting}[language=C++]
+/* hello.cpp */
+#include <iostream>
+using namespace std;
+int main() {
+    cout << "Hello World!" << endl;	// '输出'
+}
+\end{lstlisting}
+
+
+\section{tabbing环境}
+
+% 用来排版制表位
+% 行与行用\\分离,使用\=命令设置制表位, \>跳到下一个前面已设置的制表位
+% 可以用来制无线表格
+% 命令有\', \', \<, \>, \+, \-, \=, \pushtabs, \poptabs
+
+
+\section{脚注与边注}
+
+% \footnote{text}产生脚注内容, 大小为\footnotesize
+例如\footnote{脚注}
+
+知识图谱\footnote[1]{人工智能}
+
+区块链\footnote{比特币}
+
+
+
+
+
+
+\end{document}

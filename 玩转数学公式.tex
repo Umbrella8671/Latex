@@ -1,0 +1,411 @@
+% 玩转数学公式.tex
+
+\documentclass[titlepage, hyperref, UTF8]{ctexart}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{mathdots}
+\usepackage{bm}
+\usepackage{commath}
+
+
+\hypersetup{
+	colorlinks=false,
+	pdfborder=0 0 0
+}
+
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\leftmark}
+\cfoot{\thepage}
+
+
+
+
+\title{玩转数学公式}
+\author{张三}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{数学模式概说}
+使用宏包\verb|\usepackage{amsmath}|\par
+\TeX{} 有两种数学模式:\\
+一种是夹杂在行文段落中的公式,称为行内(inline)或正文(in-text)数学公式,用一对\verb|$$ 或\(\) 或\begin{math}\end{math}|来表示;\\
+另一种是单独占据整行居中展示出来,称为显示(displayed)公式(或行间、列表)。\\
+可以用\verb|$$contents$$, \[contents\], displaymath环境|\\
+带编号的数学环境用equation
+
+
+\section{数学结构}
+\subsection{上标与下标}
+上标:\^{}\par
+下标:\_{}
+
+$10^n$, $A_i$, $A_{ij} = 2^{i+j}$
+
+可以同时使用，也可以嵌套,但是嵌套时外层分组
+
+$A_i^k = B^k_i$ \qquad 
+$K_{n_i} = k_{2^i}
+		 = 2^{2^i}$\qquad
+$3^{3^{3^{\cdot^{\cdot^{\cdot^3}}}}}$
+
+撇号$\prime$是特殊上标$'$,可以连续使用,特殊上标不可连续使用,不可与普通上标直接混用
+
+$a = a'$, $b_0' = b_0''$,
+${c^\prime}^2 = (c')^2$
+
+角度:$\circ$,
+$A = 90^\circ$
+
+或定义一个更明显的命令:\verb|\newcommand{\degree}{^\circ}|
+\newcommand{\degree}{^\circ}
+
+$90\degree$
+
+四个命令
+\begin{verbatim}
+    \limits
+    \nolimits
+    \prescript{sup}{sub}{arg}
+    \sideset{left}{right}{symbol}
+\end{verbatim}
+
+\verb|$\limits$限制上下标在正上下方|
+
+\[
+\iiint\limits_D \mathrm{d}f =
+\max\nolimits_D g
+\]
+$\sum\limits_{i=0}^n A_i$不如用
+$\sum_{i=0}^n A_i$更适合文本段落
+
+左上坐下加角标:\verb|${}_m^nH$|得到
+${}_m^nH$但是间距有问题，可以用mathtools宏包
+
+使用\verb|\prescript{sang}{sub}{arg}|例如:\verb|$\prescript{n}{m}{H} < L$|得到$\prescript{n}{m}{H} < L$
+
+\[
+\sideset{_a^b}{_c^d}\sum_{i=0}^n A_i
+= \sideset{}{'} \prod_k f_i
+\]
+
+\subsection{上下划线与花括号}
+上下划线:\verb|\overline \underline|, 可以嵌套
+$\overline{a+b} = 
+  \overline a + \overline b$\\
+$\underline a = (a_0, a_1, a_2, \dots)$
+
+$\overline{\underline{\underline{a}} + \overline{b}^2}
+- c^{\underline n}$
+
+还有上下加箭头矢量:
+\begin{verbatim}
+$\overleftarrow{text}$
+$\overrightarrow{text}$
+$\overleftrightarrow{argument}$
+$\underleftarrow{argument}$
+$\underrightarrow{argument}$
+$\underleftrightarrow{argument}$
+\end{verbatim}
+例如:\\
+$\overleftarrow{a+b}$\\
+$\overrightarrow{a+b}$\\
+$\overleftrightarrow{a+b}$\\
+$\underleftarrow{a+b}$\\
+$\underrightarrow{a+b}$\\
+$\underleftrightarrow{a+b}$\\
+
+花括号(加标注):\verb|$\overbrace{text}$ $\underbrace{text}$|
+$\overbrace{a+b+c}=\underbrace{1+2+3}$
+\[
+(\overbrace{a_0, a_1, \dots, a_n}^{\text{共$n+1$项}})
+= (\underbrace{0, 0, \dots, 0}_{n}, 1)
+\]
+
+方括号:\verb|$\overbracket{text}$, $\underbracket{arg}$|
+
+\[
+a+ \rlap{$\overbrace{\phantom{b+c+d}}^m$} b+ \underbrace{c+d+e}_n +f
+\]
+\subsection{分式}
+分式(fraction):\verb|\frac<分子><分母>|
+例如:$\frac12 + \frac1a=\frac{2+a}{2a}$
+
+指定较大或较小的分式用:\verb|$\dfrac, \tfrac$|
+例如:
+\[
+\tfrac12f(x) = 
+\frac1{\dfrac1a + \dfrac1b + c}
+\]
+
+连分式(continued fraction):\verb|\cfrac[对齐方式(l,c,r)]|
+例如:
+\[
+\cfrac{1}{1+\cfrac2{1+\cfrac3{1+x}}}=
+\cfrac[r]{1}{1+\cfrac2{1+\cfrac[l]{3}{1+x}}}
+\]
+
+上下两半分式:\verb|\binom|
+例如：
+\[
+(a+b)^2=\binom 20 a^2+\binom21 ab
++\binom22b^2
+\]
+
+\subsection{根式}
+根式:\verb|$\sqrt[开方次数]{开方数}$|
+例如:$\sqrt 4=\sqrt[3]{8}=2$
+\subsection{矩阵}
+矩阵环境6个:matrix, bmatrix, vmatrix,
+pmatrix, Bmatrix, Vmatrix, 以及小型矩阵smallmatrix;可以嵌套
+
+不同的列用\&分隔,行用\textbackslash\textbackslash 分割
+
+\[
+A = \begin{pmatrix}
+a_{11}&a_{12}&a_{12}\\
+0&a_{22}&a_{23}\\
+0&0&a_{33}
+\end{pmatrix}
+\]
+矩阵中的省略号:\verb|\dot, \dots, \vdots, \ddots|
+\[
+A = \begin{bmatrix}
+a_{11}&\dots&a_{1n}\\
+&\ddots&\vdots\\
+0& &a_{nn}
+\end{bmatrix}_{n\times n}
+\]
+\verb|\hdotsfor{列数}|多列省略号
+\[
+\begin{Vmatrix}
+1& \frac12& \dots& \frac1n\\
+\hdotsfor{4}\\
+m& \frac m2& \dots& \frac mn
+\end{Vmatrix}
+\]
+\[
+\begin{Bmatrix}
+\begin{matrix} 1& 0\\ 0& 1 \end{matrix}
+& \text{\Large 0}\\
+\text{\Large 0}& 
+\begin{matrix} 1& 0\\ 0& -1 \end{matrix}
+\end{Bmatrix}
+\]
+
+\verb|\substack 和 subarray环境|
+\[
+\sum_{\substack{0<i<n\\ 0<j<i}} A_{ij}
+\]
+\[
+\sum_{
+\begin{subarray}{c}
+i<10\\ j<100\\ k<1000
+\end{subarray}}
+X(i,j,k)
+\]
+\section{符号与类型}
+数学符号分:普通符号，巨算符，二元运算符，关系符，开符号，比符号，标点和变量族(一般是字母)
+\subsection{字母表与普通符号}
+键盘获取的字母
+
+数学字体
+\begin{verbatim}
+$\mathnormal{text}$
+$\mathrm{text}$
+$\mathit{text}$
+$\mathbf{text}$
+$\mathsf{text}$
+$\mathtt{text}$
+$\mathcal{text}$
+\end{verbatim}
+
+小写希腊字母
+\begin{verbatim}
+$\alpha$	$\beta$		$\gamma$	$\delta$
+$\epsilon$	$\zeta$		$\eta$		$\theta$
+$\iota$		$\kappa$	$\lambda$	$\mu$
+$\nu$		$\xi$		$\pi$		$\rho$
+$\sigma$	$\tau$		$\upsilon$	$\phi$
+$\chi$		$\psi$		$\omega$	
+\end{verbatim}
+
+大写希腊字母:
+\begin{verbatim}
+$\Gamma$	$\Delta$	$\Theta$	$\Lambda$
+$\Xi$		$\Pi$		$\Sigma$	$\Upsilon$
+$\Phi$		$\Psi$		$\Omega$
+\end{verbatim}
+
+粗体数学符号:\verb|\boldmath|
+{\boldmath $a^2$}
+
+\newcommand{\mi}{\mathrm i}
+\newcommand{\me}{\mathrm e}
+$\me^{\pi \mathrm i} + 1 = 0$
+
+\subsection{数学算子}
+数学算子(math operator)分两种:第一类是类似求和号$\sum$和积分号$\int$
+等大小可变的,称为巨算符。\\
+第二类算子是文字名称的算子。
+
+巨算符(可以带上下标)\footnote{积分号在角标位置，其他默认在上下方}:
+\begin{verbatim}
+\sum    \prod    \coprod
+\int    \oint    
+\bigcup \biguplus \bigsqcup
+\bigvee \bigwedge \bigcap
+\bigodot \bigoplus \bigotimes
+\iint   \iiint     \iiiint
+\idotsint
+\end{verbatim}
+\[
+\sum    \prod    \coprod
+\int    \oint    
+\bigcup \biguplus \bigsqcup
+\bigvee \bigwedge \bigcap
+\bigodot \bigoplus \bigotimes
+\iint   \iiint     \iiiint
+\idotsint
+\]
+
+不带上下限的数学算子名\footnote{做数学函数名}:
+\begin{verbatim}
+\log    \lg    \ln    \sin    \arcsin
+\cos    \arccos\tan   \arctan \cot
+\sinh   \cosh  \tanh  \coth   \sec
+\css    \arg   \ker   \dim    \hom
+\exp    \deg
+\end{verbatim}
+
+带上下限的数学算子名\footnote{用法和求和、积分号类似}:
+\begin{verbatim}
+\lim    \limsup    \liminf    \max
+\min    \sup      \inf       \det
+\Pr     \gcd
+\end{verbatim}
+
+\begin{equation}
+\oint_C \kappa_\mathrm g \dif s + \iint_D K \dif\sigma = 2\pi - \sum_{i=1}^n \alpha_i
+\end{equation}
+\begin{equation}
+\lim_{x\to -\infty} f(x) = \infty
+\end{equation}
+
+\subsection{二元运算符与关系符}
+二元运算符有普通二元运算符及其否定,关系符,标准字体加上AMS字符
+
+\subsection{括号与定界符}
+园、方、花、尖括号等。
+左边的括号是开符号,右边的括号是闭符号\\
+\verb|\lbrace, \rbrace|花括号\\
+\verb|\langle, \rangle|尖括号\\
+\verb|\lfloor, \rfloor|向下取整\\
+\verb|\lceil, \rceil|向上取整
+
+\subsection{标点}
+数学标点:
+, \quad ; \quad ! \quad ? \quad $\colon$
+
+
+\section{多行公式}
+一行写不下的公式
+\subsection{罗列多行公式}
+把公式罗列在一起，是基本的产生多行公式的方法。有eqnarry环境\\
+equation环境中\textbackslash \textbackslash 不产生换行\\
+gather环境则可以换行,公式居中\\
+align环境允许公式按等号或其他关系符对齐,关系符前加\&表示对齐,还允许排列多列对齐公式,列用\&分开
+
+\begin{gather}
+3+5=5+3=8  \\
+3\times 5 = 5\times 3 \notag % 阻止指定的行不编号 
+\end{gather}
+
+\begin{align}
+	x &= t+\cos t + 1\\
+	y &= 2\sin t
+\end{align}
+
+\begin{align}
+x &= t & x &= \cos t & x &= t\\
+y &= 2t & y &= \sin (t+1) & y &= \sin t
+\end{align}
+
+\begin{align*}
+	&(a+b)(a^2-ab+b^2) \\
+={}& a^3-a^2b+ab^2+a^b
+	 -ab^2+b^2\\
+={}& a^3+b^3 \label{eq:cubenum}
+\end{align*}
+
+\begin{align*}
+&\mathrel{\phantom{=}}
+	(a+b)(a^2-ab+b^2) \\
+&= a^3-a^2b+ab^2+a^b
+	 -ab^2+b^2\\
+&= a^3+b^3 % \label{eq:cubenum}
+\end{align*}
+
+\subsection{拆分多个公式}
+multline环境、split环境\footnote{用在equation、gather环境}
+
+\begin{multline}
+a+b+c+d+e\\
++f+g+h+i+j\\
++k+l+m+n+o\\
++p+q+r+s+t
+\end{multline}
+
+\begin{equation}
+\begin{split}
+\cos 2x &= \cos^2 x - \sin^2 x\\
+		&= 2\cos^2x - 1 
+\end{split}
+\end{equation}
+\subsection{将公式组合成块}
+cases,numcases环境,\&分隔值与条件
+
+\begin{equation}
+D(x)=
+\begin{cases}
+1,&\text{if }x \in \mathbf{Q};\\
+0,&\text{if }x \in \mathbf{R}\setminus\mathbf{Q};
+\end{cases}
+\end{equation}
+
+\[
+\left.
+\begin{gathered}
+S \subseteq T\\
+S \subseteq T
+\end{gathered} \right\}
+\implies S = T
+\]
+
+\[\text{比较曲线}
+\left\{
+\begin{lgathered}
+x = \sin t, y = \cos t\\
+x = t + \sin t, y = \cos t
+\end{lgathered} 
+\right.
+\]
+
+
+
+
+\section{精调与杂项}
+\subsection{公式编号控制}
+\subsection{公式的字号}
+\subsection{断行与数学间距}
+
+\end{document}
